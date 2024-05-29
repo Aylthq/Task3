@@ -42,7 +42,6 @@ class Probe:
         ax.set_xlabel('f, Гц')
         ax.set_ylabel('|S|/|S|max')
         ax.set_xlim(0, 15e9)
-        fig.show()
 
     def showSignal(self):
         fig, ax = pp.subplots()
@@ -50,14 +49,13 @@ class Probe:
         ax.set_xlabel('t, c')
         ax.set_ylabel('Ez, В/м')
         ax.set_xlim(0, self.maxT*self.dt)
-        fig.show()
         
 eps = 3
 W0 = 120*np.pi
 Sc = 1
-maxT = 1300
+maxT = 2000
 size_m = 1
-dx = size_m/1250
+dx = size_m/1875
 maxSize = int(size_m/dx)
 probePos = int(size_m/4/dx)
 sourcePos = int(size_m/2/dx)
@@ -73,7 +71,7 @@ k3 = 2 * (Sc1 - 1 / Sc1)
 k4 = 4 * (1 / Sc1 + Sc1)
 Ezq = np.zeros(3)
 Ezq1 = np.zeros(3)
-A_max = 1e2
+A_max = 10
 F_max = 12e9
 w_g = np.sqrt(np.log(5.5 * A_max)) / (np.pi * F_max)/dt
 d_g = w_g * np.sqrt(np.log(2.5 * A_max * np.sqrt(np.log(2.5 * A_max))))
@@ -88,8 +86,12 @@ for q in range(1, maxT):
     if q % 10 == 0:
         display.update(Ez)
 
+pp.ioff()
 probe.showSignal()
 probe.showSpectrum()
+pp.show()
+
+
 
 
 
